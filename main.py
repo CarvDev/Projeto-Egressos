@@ -72,7 +72,7 @@ nomesVinculo = {
     4: "CLT",
     5: "Servidor",
 }
-nomesTempo = {0: "Antes", 1: "Até 6m", 2: "6m-1a", 3: "1-10a"}
+nomesTempo = {0: "Antes da\nformatura", 1: "Até 6m\napós", 2: "6m a 1a\napós", 3: "1 a 10a\napós"}
 tabelaSpearman = tabelaSpearman.rename(index=nomesTempo, columns=nomesVinculo)
 
 # Plot Spearman
@@ -84,10 +84,11 @@ sns.heatmap(
     cmap="coolwarm",
     cbar_kws={"label": "Nº de egressos"},
 )
-plt.xlabel("Vínculo")
-plt.ylabel("Tempo até 1º emprego")
+plt.xlabel("Vínculo atual")
+plt.ylabel("Momento do 1º emprego\n(em relação à formatura)")
+plt.yticks(rotation=0)
 plt.title(
-    f"Vínculo × tempo até o 1º emprego (n = {len(dfSpearman)})\nSpearman: rho = {rho:.2f}, p = {p:.3f}"
+    f"Vínculo atual × momento do 1º emprego (n = {len(dfSpearman)})\nSpearman: rho = {rho:.2f}, p = {p:.3f}"
 )
 plt.tight_layout()
 
@@ -142,7 +143,7 @@ descritiva = (
     .reindex([g for g in ordemVinculo if g in grupos])
 )
 
-print(f"\n{Cor.VERDE}[Kruskal-Wallis]{Cor.RESET} Tempo até 1º emprego por vínculo")
+print(f"\n{Cor.VERDE}[Kruskal-Wallis]{Cor.RESET} Momento do 1º emprego por vínculo atual")
 print(descritiva.round(2).to_string())
 print(
     f"\nH({k - 1}) = {H:.3f} | p = {pKW:.4f} | n = {N} | ε² = {epsilon2:.3f} ({efeito})"
@@ -229,10 +230,10 @@ ax.set_yticklabels([nomesTempo[i] for i in sorted(nomesTempo)])
 ax.set_xticks(range(len(ordemPlot)))
 ax.set_xticklabels([f"{g}\n(n={nGrupo[g]})" for g in ordemPlot])
 
-ax.set_xlabel("Vínculo empregatício", fontweight="bold", labelpad=10)
-ax.set_ylabel("Tempo até o 1º emprego", fontweight="bold", labelpad=10)
+ax.set_xlabel("Vínculo atual", fontweight="bold", labelpad=10)
+ax.set_ylabel("Momento do 1º emprego\n(em relação à formatura)", fontweight="bold", labelpad=10)
 ax.set_title(
-    f"Distribuição do Tempo até 1º Emprego (Boxplot)\nKruskal-Wallis: H({k - 1}) = {H:.2f}, p = {pKW:.3f}, ε² = {epsilon2:.2f}",
+    f"Distribuição do Momento do 1º Emprego (Boxplot)\nKruskal-Wallis: H({k - 1}) = {H:.2f}, p = {pKW:.3f}, ε² = {epsilon2:.2f}",
     pad=15
 )
 
@@ -270,7 +271,7 @@ sns.heatmap(
     vmax=1,
     cbar_kws={"label": "p ajustado (Bonferroni)"},
 )
-plt.title("Post-hoc de Dunn (comparações pareadas)")
+plt.title("Post-hoc de Dunn – vínculo atual (comparações pareadas)")
 plt.tight_layout()
 
 try:
