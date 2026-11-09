@@ -104,9 +104,7 @@ except OSError as erro:
 
 plt.close()
 
-# =====================================================================
 # KRUSKAL-WALLIS
-# =====================================================================
 dfKW = dfSpearman.copy()
 dfKW["vinculo"] = dfKW["v"].map(nomesVinculo)
 
@@ -143,12 +141,6 @@ descritiva = (
     .reindex([g for g in ordemVinculo if g in grupos])
 )
 
-print(f"\n{Cor.VERDE}[Kruskal-Wallis]{Cor.RESET} Momento do 1º emprego por vínculo atual")
-print(descritiva.round(2).to_string())
-print(
-    f"\nH({k - 1}) = {H:.3f} | p = {pKW:.4f} | n = {N} | ε² = {epsilon2:.3f} ({efeito})"
-)
-
 # Post-hoc de Dunn
 nomes = list(grupos.keys())
 todos = np.concatenate([grupos[g] for g in nomes])
@@ -173,9 +165,7 @@ for i, a in enumerate(nomes):
         pAjust = min(2 * norm.sf(abs(z)) * nComp, 1.0)
         dunn.loc[a, b] = dunn.loc[b, a] = pAjust
 
-# =====================================================================
 # Gráfico 1: Boxplot 
-# =====================================================================
 fig, ax = plt.subplots(figsize=(10, 6))
 ordemPlot = [g for g in ordemVinculo if g in grupos]
 

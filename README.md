@@ -168,3 +168,8 @@ A execução da análise deve produzir:
 - Resultado do teste de Kruskal-Wallis (H, p-valor e ε²) e boxplot por vínculo (`kruskal_boxplot.png`);
 - Heatmap dos p-valores ajustados do post-hoc de Dunn (`kruskal_dunn_heatmap.png`);
 - Texto interpretativo dos gráficos, dados e tabelas, com aproximadamente duas páginas.
+
+## Autores
+
+* [CarvDev](https://github.com/CarvDev)
+* [4mandaCardoso](https://github.com/4mandaCardoso)
